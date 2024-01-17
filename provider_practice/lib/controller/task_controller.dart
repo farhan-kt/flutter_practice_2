@@ -12,4 +12,22 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 */
+
+// Increasing Container Size
+
+/*   double containerHeight = 100;
+  double containerWidth = 100;
+
+  void changeSize() {
+    containerHeight = containerHeight + 100;
+    containerWidth = containerWidth + 100;
+    notifyListeners();
+  } */
+
+  bool reSize = false;
+
+  void changeSize() {
+    reSize = !reSize;
+    notifyListeners();
+  }
 }

@@ -8,14 +8,17 @@ class ScreenTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final providerData = Provider.of<TaskProvider>(context, listen: false);
+    final sizedBox = const SizedBox(height: 20);
     return Scaffold(
       appBar: AppBar(
         title: const Text('HOME'),
         centerTitle: true,
+        backgroundColor: Colors.green,
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           children: [
+            SizedBox(height: 30),
             // Merge Two TextField
 
             /*    TextField(
@@ -32,7 +35,37 @@ class ScreenTextField extends StatelessWidget {
             Consumer<TaskProvider>(
                 builder: (context, value, child) => Text("${value.newName}")) */
 
-            //
+            // Increasing Container Size
+
+            /*  Consumer<TaskProvider>(
+              builder: (context, value, child) => Container(
+                color: Colors.teal,
+                height: providerData.containerHeight,
+                width: providerData.containerWidth,
+              ),
+            ),
+            sizedBox,
+            ElevatedButton(
+                onPressed: () {
+                  providerData.changeSize();
+                },
+                child: Text('Increase Size')) */
+
+            // Up and Down Container Size
+
+            Consumer<TaskProvider>(
+              builder: (context, value, child) => Container(
+                color: Colors.teal,
+                height: value.reSize ? 200 : 100,
+                width: value.reSize ? 200 : 100,
+              ),
+            ),
+            sizedBox,
+            ElevatedButton(
+                onPressed: () {
+                  providerData.changeSize();
+                },
+                child: Text('Resize'))
           ],
         ),
       ),
