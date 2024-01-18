@@ -18,7 +18,7 @@ class ScreenTextField extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             // Merge Two TextField
 
             /*    TextField(
@@ -65,7 +65,7 @@ class ScreenTextField extends StatelessWidget {
                 onPressed: () {
                   providerData.changeSize();
                 },
-                child: Text('Resize'))
+                child: const Text('Resize'))
           ],
         ),
       ),
