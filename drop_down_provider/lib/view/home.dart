@@ -22,8 +22,7 @@ class Screenhome extends StatelessWidget {
                       value: value.selectedValue,
                       onChanged: (String? newValue) {
                         if (newValue != null) {
-                          Provider.of<DropDownProvider>(context, listen: false)
-                              .setSelectedValue(newValue);
+                          value.setSelectedValue(newValue);
                         }
                       },
                       items: <String>['Opt1', 'Opt2', 'Opt3']
