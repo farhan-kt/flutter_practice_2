@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:api_sample_task/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,7 +12,7 @@ class ScreenHome extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<ScreenHome> {
-  List<dynamic> users = [];
+  List<User> users = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,15 +25,13 @@ class _MyWidgetState extends State<ScreenHome> {
           itemCount: users.length,
           itemBuilder: (context, index) {
             final user = users[index];
-            final email = user["email"];
-            final name = user["name"]["first"];
-            final imageUrl = user['picture']['thumbnail'];
+
+            // final color = user.gender == 'male' ? Colors.blue : Colors.pink;
+
             return ListTile(
-              leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(imageUrl)),
-              title: Text(name),
-              subtitle: Text(email),
+              title: Text(user.name.first),
+              subtitle: Text(user.phone),
+              // tileColor: color,
             );
           }),
       floatingActionButton: FloatingActionButton(
@@ -50,9 +49,22 @@ class _MyWidgetState extends State<ScreenHome> {
     final response = await http.get(uri);
     final body = response.body;
     final json = jsonDecode(body);
-
+    final results = json['results'] as List<dynamic>;
+    final transformed = results.map((e) {
+      final name = UserName(
+          title: e['name']['title'],
+          first: e['name']['first'],
+          last: e['name']['last']);
+      return User(
+          gender: e['gender'] ?? 'Unknown',
+          email: e['email'] ?? 'Unknown',
+          phone: e['phone'] ?? 'Unknown',
+          country: e['location']['country'] ?? 'Unknown',
+          cell: e['cell'] ?? 'Unknown',
+          name: name);
+    }).toList();
     setState(() {
-      users = json['results'];
+      users = transformed;
     });
   }
 }
